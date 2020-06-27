@@ -1,9 +1,13 @@
 import React from 'react';
+import Projects from './Projects.js'
 import './App.css';
 
 function App() {
   return (
-    <div>Hello world</div>
+    <div>
+      <h1>2020 Projects</h1>
+      <Projects />
+    </div>
   )
 }
 

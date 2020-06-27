@@ -1,0 +1,17 @@
+.ProjectList {
+}
+.SingleProject {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: relative;
+  width: 480px;
+  background: #fff;
+  margin: 0 0 1px 0;
+}
+.Done{
+  color: #d5d5d5;
+}
+.ProjectTitle {
+  font-weight: bold;
+}
