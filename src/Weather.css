@@ -1,0 +1,28 @@
+.hourlyWeather{
+  display: grid;
+  grid-auto-flow: column;
+  list-style: none;
+  grid-gap: 1px;
+  align-items: end;
+  font-family: monospace;
+  overflow: hidden;
+  padding: 0;
+}
+.hourlyRow{
+  text-align: right;
+  min-width: 1.5em;
+  padding: 0.2em;
+  display: grid;
+}
+.day{
+  background-color: lightblue;
+}
+.night{
+  background-color: darkgray;
+}
+.time{
+  align-self: end;
+}
+.weather{
+  background: white;
+}
