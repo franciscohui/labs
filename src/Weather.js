@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Weather.css"
 
 /*
@@ -14,7 +14,7 @@ nyc long: -74.006
 function Weather() {
   const [weather, setWeather] = useState();
 
-  function fetchWeather() {
+  function updateWeather() {
     const weatherHourlyForecast =
       "https://api.weather.gov/gridpoints/OKX/32,34/forecast/hourly";
 
@@ -35,13 +35,14 @@ function Weather() {
     */
 
     const eachHour = props.map((hour) => (
-      <WeatherRow
-        id={hour.number}
-        temperature={hour.temperature}
-        time={new Date(hour.startTime).getHours()}
-        daytime={hour.isDaytime}
-      />
-    ));
+        <WeatherRow
+          id={hour.number}
+          temperature={hour.temperature}
+          time={new Date(hour.startTime).getHours()}
+          daytime={hour.isDaytime}
+        />
+      ));
+
     return <ul className="hourlyWeather">{eachHour}</ul>;
   }
 
@@ -57,11 +58,12 @@ function Weather() {
     )
   }
 
+  useEffect(() => {
+    updateWeather()
+  }, [])
+
   return (
-    <div>
-      <button onClick={fetchWeather}>Show weather</button>
       <div className="weather">{weather}</div>
-    </div>
   );
 }
 

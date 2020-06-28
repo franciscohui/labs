@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Projects.css';
 
 const projectData = {
@@ -215,7 +215,7 @@ function ProjectList(){
 
   //const dataURL = "#"
 
-  const onDisplayProjects = () => {
+  const updateProjects = () => {
     setProjects(projectData.records)
     /*
     fetch(dataURL, {
@@ -262,12 +262,14 @@ function ProjectList(){
       </div>
     )
   }
+  
+  useEffect(() => {
+    updateProjects()
+  }, [])
 
   return(
-    <div>
-      <ProjectList />
-      <button onClick={onDisplayProjects}>Show Projects</button>
-    </div>
+    <ProjectList />
   )
 }
+
 export default ProjectList;
