@@ -24,10 +24,11 @@ function Weather() {
 
     const eachHour = props.map((hour) => (
         <WeatherRow
-          id={hour.number}
-          temperature={hour.temperature}
-          time={new Date(hour.startTime).getHours()}
-          daytime={hour.isDaytime}
+          id={hour.dt}
+          temperature={Math.round(hour.feels_like)}
+          time={new Date(hour.dt*1000).getHours()}
+          daytime={RegExp('d').test(hour.weather[0].icon)? true: false}
+          // daytime={(hour.weather[0].icon === "01d"? true: false)}
         />
       ));
 
@@ -35,12 +36,12 @@ function Weather() {
   }
 
   function WeatherRow({id, time, temperature, daytime}){
-    const height = {height: temperature-30 + 'vh'}
+    const height = {height: temperature-60 + 'vh'}
     const classVariables = (daytime? 'day' : 'night') + ' hourlyRow';
 
     return(
         <li className={classVariables} key={id} style={height}>
-          <div>{temperature}°</div>
+          <div>{temperature}</div>
           <div className="time">{time}</div>
         </li>
     )
@@ -50,15 +51,15 @@ function Weather() {
 
     function updateWeather() {
       const weatherHourlyForecast =
-        "https://api.weather.gov/gridpoints/OKX/32,34/forecast/hourly";
+        "https://api.openweathermap.org/data/2.5/onecall?lat=40.7128&lon=-74.006&exclude=daily,minutely&units=imperial&appid=a7bf0b1fdf4dce3928103f211cc679bd";
 
       fetch(weatherHourlyForecast)
         .then(initialResponse => initialResponse.json())
         .then(responseJSON => {
-          console.log(responseJSON.properties.periods);
-          setWeather(HourlyWeather(responseJSON.properties.periods));
+          console.log(responseJSON.hourly[0].weather[0].icon);
+          setWeather(HourlyWeather(responseJSON.hourly));
         });
-    }    
+    }
 
     updateWeather()
   }, [])
