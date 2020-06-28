@@ -12,7 +12,8 @@ nyc long: -74.006
 */
 
 function Weather() {
-  const [weather, setWeather] = useState();
+  const [hourlyWeather, setHourlyWeather] = useState();
+  const [weatherSummary, setWeatherSummary] = useState();
 
   function HourlyWeather(props) {
 
@@ -24,10 +25,11 @@ function Weather() {
 
     const eachHour = props.map((hour) => (
         <WeatherRow
-          id={hour.dt}
+          key={hour.dt}
           temperature={Math.round(hour.feels_like)}
           time={new Date(hour.dt*1000).getHours()}
           daytime={RegExp('d').test(hour.weather[0].icon)? true: false}
+          img={hour.weather[0].icon}
           // daytime={(hour.weather[0].icon === "01d"? true: false)}
         />
       ));
@@ -35,13 +37,15 @@ function Weather() {
     return <ul className="hourlyWeather">{eachHour}</ul>;
   }
 
-  function WeatherRow({id, time, temperature, daytime}){
-    const height = {height: temperature-60 + 'vh'}
+  function WeatherRow({key, time, temperature, daytime, img}){
+    const height = {height: temperature + '%'}
     const classVariables = (daytime? 'day' : 'night') + ' hourlyRow';
+    const imgSrc = "http://openweathermap.org/img/wn/"+img+"@2x.png"
 
     return(
-        <li className={classVariables} key={id} style={height}>
-          <div>{temperature}</div>
+        <li className={classVariables} key={key} style={height}>
+          <div className="temperature">{temperature}</div>
+          <img src={imgSrc}/>
           <div className="time">{time}</div>
         </li>
     )
@@ -57,7 +61,8 @@ function Weather() {
         .then(initialResponse => initialResponse.json())
         .then(responseJSON => {
           console.log(responseJSON.hourly[0].weather[0].icon);
-          setWeather(HourlyWeather(responseJSON.hourly));
+          setHourlyWeather(HourlyWeather(responseJSON.hourly));
+          setWeatherSummary("NYC "+Math.round(responseJSON.current.feels_like)+"°F "+ responseJSON.current.weather[0].main);
         });
     }
 
@@ -65,7 +70,10 @@ function Weather() {
   }, [])
 
   return (
-      <div className="weather">{weather}</div>
+    <div>
+      <div className="summary">{weatherSummary}</div>
+      <div className="weather">{hourlyWeather}</div>
+    </div>
   );
 }
 

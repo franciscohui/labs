@@ -9,11 +9,19 @@
   padding: 0;
   font-size: 0.6em;
   text-align: center;
+  padding-top: 10px;
+  min-height: 200px;
+  margin: 0 0 10px 0;
 }
 .hourlyRow{
-  min-width: 1.2em;
-  padding: 0.3em;
+  min-width: 1.95em;
   display: grid;
+  grid-template-rows: auto 2em 2em;
+  grid-gap: 1px;
+}
+.hourlyRow img{
+  width: 100%;
+  border-bottom: 1px solid white;
 }
 .day{
   background-color: lightblue;
@@ -22,8 +30,16 @@
   background-color: darkgray;
 }
 .time{
-  align-self: end;
+  align-self: center;
 }
 .weather{
   background: white;
+}
+.summary{
+  font-family: 'Bebas Neue', cursive;
+  background: white;
+  text-align: center;
+  font-size: 2em;
+  line-height: 1em;
+  padding: 0.7em 0 0 0;
 }
