@@ -14,18 +14,6 @@ nyc long: -74.006
 function Weather() {
   const [weather, setWeather] = useState();
 
-  function updateWeather() {
-    const weatherHourlyForecast =
-      "https://api.weather.gov/gridpoints/OKX/32,34/forecast/hourly";
-
-    fetch(weatherHourlyForecast)
-      .then(initialResponse => initialResponse.json())
-      .then(responseJSON => {
-        console.log(responseJSON.properties.periods);
-        setWeather(HourlyWeather(responseJSON.properties.periods));
-      });
-  }
-
   function HourlyWeather(props) {
 
     /* Formating Timestamp
@@ -59,6 +47,19 @@ function Weather() {
   }
 
   useEffect(() => {
+
+    function updateWeather() {
+      const weatherHourlyForecast =
+        "https://api.weather.gov/gridpoints/OKX/32,34/forecast/hourly";
+
+      fetch(weatherHourlyForecast)
+        .then(initialResponse => initialResponse.json())
+        .then(responseJSON => {
+          console.log(responseJSON.properties.periods);
+          setWeather(HourlyWeather(responseJSON.properties.periods));
+        });
+    }    
+
     updateWeather()
   }, [])
 
