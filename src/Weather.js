@@ -45,7 +45,7 @@ function Weather() {
     return(
         <li className={classVariables} key={key} style={height}>
           <div className="temperature">{temperature}</div>
-          <img src={imgSrc}/>
+          <img alt="" src={imgSrc}/>
           <div className="time">{time}</div>
         </li>
     )
