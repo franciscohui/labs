@@ -4,6 +4,8 @@ import Timer from './Timer.js'
 import Weather from './Weather.js'
 import './App.css';
 
+console.log("API "+ process.env.REACT_APP_WEATHER_API_KEY);
+
 function App() {
   return (
     <div>

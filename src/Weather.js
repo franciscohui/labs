@@ -55,7 +55,7 @@ function Weather() {
 
     function updateWeather() {
       const weatherHourlyForecast =
-        "https://api.openweathermap.org/data/2.5/onecall?lat=40.7128&lon=-74.006&exclude=daily,minutely&units=imperial&appid=a7bf0b1fdf4dce3928103f211cc679bd";
+        "https://api.openweathermap.org/data/2.5/onecall?lat=40.7128&lon=-74.006&exclude=daily,minutely&units=imperial&appid="+process.env.REACT_APP_WEATHER_API_KEY;
 
       fetch(weatherHourlyForecast)
         .then(initialResponse => initialResponse.json())
